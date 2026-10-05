@@ -1,0 +1,228 @@
+{
+  "codigo": "GFPI-PR-001",
+  "version": "01",
+  "fecha_emision": "Diciembre 2022",
+  "entidad": "Servicio Nacional de Aprendizaje - SENA",
+  "proceso": "Gestión de la Formación Profesional Integral",
+  "nombre": "Protocolo ruta de atención para la prevención de la Deserción de la formación profesional",
+  "objetivo": "Establecer la ruta de atención para aprendices de formación laboral y tecnológica, como herramienta de apoyo que le permita a los Centros de Formación adelantar acciones orientadas a prevenir el riesgo de deserción de los aprendices, procurando su permanencia y posterior certificación.",
+  "alcance": "Programas de formación laboral y tecnológica en modalidades presencial, virtual y a distancia desde el inicio hasta la certificación.",
+  "responsables": {
+    "direccion_general": "Dirección de Formación Profesional",
+    "regionales": "Grupo de Formación Profesional Integral, Empleo y SNFT",
+    "centros_formacion": "Coordinador Académico e Instructores asignados a la ficha"
+  },
+  "pasos_ruta_atencion": [
+    {
+      "paso": 1,
+      "nombre": "Identificación del Riesgo",
+      "descripcion": "El instructor asignado a la ficha detecta alertas tempranas: inasistencias (1 o 2 días), retardos reiterados, intermitencia, bajo rendimiento o cambios de comportamiento."
+    },
+    {
+      "paso": 2,
+      "nombre": "Indagación y Comunicación Inicial",
+      "descripcion": "El instructor se comunica con el aprendiz (correo, llamada o sesión) para indagar de primera mano la causa de la situación."
+    },
+    {
+      "paso": 3,
+      "nombre": "Clasificación de Motivos (Tabla 1)",
+      "descripcion": "Identificar con el aprendiz los motivos asociados al riesgo de deserción según las 8 categorías del protocolo."
+    },
+    {
+      "paso": 4,
+      "nombre": "Escalamiento y Diligenciamiento Formato GFPI-F-176",
+      "descripcion": "Escalar el caso según la Tabla 2 (Coordinación de Formación, Bienestar, APE, etc.) y registrar en el formato oficial GFPI-F-176."
+    },
+    {
+      "paso": 5,
+      "nombre": "Implementación de Estrategias y Seguimiento",
+      "descripcion": "Las instancias receptoras despliegan acciones de permanencia (apoyos socioeconómicos, grupos focales, planes de estudio, ajustes razonables) con corte trimestral y semestral."
+    }
+  ],
+  "tabla_1_elementos_conceptuales": [
+    {
+      "categoria": "Motivos económicos",
+      "definicion": "Abarcan las situaciones financieras tanto de la familia como del mismo aprendiz que influyen en su ingreso y permanencia, así como su manutención durante el periodo formativo.",
+      "variables": "Necesidad de auto sostenimiento del aprendiz",
+      "causas_riesgo": [
+        "No cuento con recursos económicos para estudiar en el SENA",
+        "Tuve que dedicarme a trabajar por no contar con apoyo económico para dedicarme a estudiar"
+      ]
+    },
+    {
+      "categoria": "Motivos laborales",
+      "definicion": "Se refiere a las condiciones que inciden en aspectos asociados al trabajo: horarios, cambio de responsabilidades, incertidumbre laboral, pérdida o ascenso.",
+      "variables": "Rol laboral",
+      "causas_riesgo": [
+        "Mi trabajo no me deja tiempo para estudiar",
+        "Cruce de actividades laborales con actividades formativas",
+        "Se me presentó una oportunidad laboral"
+      ]
+    },
+    {
+      "categoria": "Motivos familiares",
+      "definicion": "Referidos a la relación del aprendiz con su familia y a su influencia como red de apoyo en la formación del aprendiz.",
+      "variables": "Apoyo y relación familiar",
+      "causas_riesgo": [
+        "A mi familia no le agradaba que yo estudiara ese programa, quería que estudiara algo diferente",
+        "Se presentaron conflictos, crisis o calamidades familiares (familia o pareja) que me afectaron",
+        "Tuve que dedicarme a los oficios del hogar y-o cuidado de familiares"
+      ]
+    },
+    {
+      "categoria": "Motivos de Salud",
+      "definicion": "Es el estado de bienestar del que goza un aprendiz, tanto a nivel físico y mental.",
+      "variables": "Física y emocional",
+      "causas_riesgo": [
+        "Tuve una enfermedad que me limitó para seguir estudiando",
+        "Tuve problemas con el consumo de licor u otras sustancias psicoactivas que me afectaron",
+        "Me sentí triste y deprimido, por lo que no quise seguir estudiando (Situaciones de mi estado de ánimo)"
+      ]
+    },
+    {
+      "categoria": "Motivos Sociales",
+      "definicion": "Están asociados a aspectos que moldean el comportamiento individual, entre ellos se destacan el contexto territorial, la escala de valores, necesidades, logros, reconocimiento, entre otros.",
+      "variables": "Contexto territorial / Relación entre pares",
+      "causas_riesgo": [
+        "Tuve que desplazarme del municipio donde estudiaba por temas de conflicto o violencia social",
+        "Se me dificultaba llegar al Centro de formación por temas de distancia, horarios o transporte",
+        "Me sentí discriminado y no aceptado por mis compañeros del SENA o me hicieron Bullying",
+        "No pude interactuar con compañeros, hacer amistades, me sentí solo",
+        "Mis amigos me influenciaron para retirarme",
+        "No me llevé bien con mis compañeros del SENA",
+        "Me sentí discriminado por mis instructores o personal del SENA",
+        "No me llevé bien con algunos instructores y/o personal del SENA"
+      ]
+    },
+    {
+      "categoria": "Motivos Académicos del aprendiz",
+      "definicion": "Referidos a aspectos individuales de carácter psicológicos y actitudinales que median en la motivación del aprendiz para permanecer en su formación.",
+      "variables": "Autopercepción académica / Preparación y recursos / Actitud hacia el estudio",
+      "causas_riesgo": [
+        "No me sentí capaz con todo lo que me pedían en la formación",
+        "No me iba bien con las actividades que hacía y-o presentaba",
+        "No logré manejar las plataformas digitales dispuestas para el desarrollo de mi formación",
+        "No contaba con los recursos tecnológicos (computador, internet) necesarios para cumplir con mis actividades",
+        "No me adapté a la forma y metodología de estudio del SENA",
+        "Me di cuenta de que no era lo que quería estudiar",
+        "Cambié de idea de lo que quiero para mi vida",
+        "Estaba estudiando simultáneamente en otra institución"
+      ]
+    },
+    {
+      "categoria": "Motivos asociados a la Calidad del Programa",
+      "definicion": "Referidos a los aspectos externos del aprendiz que están referidos a la metodología, recursos y pertinencia del programa y la proyección laboral.",
+      "variables": "Metodología / Instructores del programa / Pertinencia / Ambientes y recursos / Proyección laboral",
+      "causas_riesgo": [
+        "Dejaban muchas actividades y trabajos",
+        "En el programa de formación no se hacían prácticas, mucha teoría",
+        "No me gustó el modelo de formación (Por competencias, calificación de aprobado - no aprobado)",
+        "No recibí o fue deficiente la atención y orientación por parte de mis instructores",
+        "Algunos instructores no estaban preparados para orientar el programa",
+        "Encontré que el programa no correspondía con lo que yo esperaba respecto a su nombre",
+        "En la formación no se realizaban actividades que respondieran a necesidades del sector productivo",
+        "El programa de formación abordaba temas que no están vigentes",
+        "Los ambientes de aprendizaje (presenciales o virtuales) no tenían lo requerido para adelantar actividades",
+        "Los equipos tecnológicos y/o plataformas virtuales no funcionaban adecuadamente",
+        "Me di cuenta de que lo que estudiaba no era bien pagado en el sector laboral",
+        "Me di cuenta de que lo que estudiaba no tenía salida laboral (pocas oportunidades)"
+      ]
+    },
+    {
+      "categoria": "Motivos asociados a las condiciones institucionales",
+      "definicion": "Hace referencia a las políticas de la entidad que respaldan la implementación de programas como el de bienestar al aprendiz, condiciones de infraestructura y de administración del programa.",
+      "variables": "Acompañamiento Institucional / Administración de la formación / Bienestar al aprendiz",
+      "causas_riesgo": [
+        "No encontré apoyo para nivelarme en conocimientos básicos y mejorar mis desempeños",
+        "No tuve una atención diferencial acorde a mi discapacidad",
+        "La información de la inducción no fue suficiente para entender la metodología",
+        "No encontré apoyo para aprender a manejar las plataformas digitales",
+        "No tuve apoyo u orientación para acceder a patrocinio o contrato de aprendizaje",
+        "No tuve instructores a tiempo, actividades a destiempo o desorden en programación",
+        "No había infraestructura física o tecnológica ajustada para población con discapacidad",
+        "Los procesos administrativos en el SENA son ineficientes",
+        "Tenía clases de día y de noche",
+        "Cometí una falta y no tuve el debido proceso",
+        "En el Centro me orientaron que solicitara el retiro voluntario para evitar sanciones",
+        "No encontré espacios en los cuales pudiera destacarme con mis talentos",
+        "No encontré espacios en los cuales pudiera tener orientación para mis problemas personales",
+        "No había espacios o actividades para interactuar y relacionarnos",
+        "No había actividades de bienestar para el desarrollo personal"
+      ]
+    }
+  ],
+  "tabla_2_escalamiento_y_estrategias": [
+    {
+      "categoria": "Motivos económicos",
+      "escalar_a": "Al Coordinador de Formación quien designa a un integrante del equipo de Bienestar al Aprendiz del Centro de Formación.",
+      "estrategias": [
+        "Orientar al aprendiz sobre las oportunidades de aplicar a apoyos socioeconómicos institucionales.",
+        "Articular con programas del municipio, región o gobierno nacional (Jóvenes en Acción, Renta Ciudadana, Ingreso Solidario).",
+        "Articular acciones con la Agencia Pública de Empleo (APE) para ruedas de empleo y orientación ocupacional.",
+        "Articular acciones con el responsable de contrato de aprendizaje para divulgar oportunidades de patrocinio."
+      ]
+    },
+    {
+      "categoria": "Motivos laborales",
+      "escalar_a": "Coordinador Académico y Equipo de Instructores de la ficha.",
+      "estrategias": [
+        "Revisión de alternativas para cambio de jornada o ajuste en los horarios de formación.",
+        "Acuerdo concertado de plazos para entrega de evidencias y guías de aprendizaje de acuerdo con la normatividad."
+      ]
+    },
+    {
+      "categoria": "Motivos familiares",
+      "escalar_a": "Al Coordinador de Formación quien designa a un integrante del equipo de Bienestar al Aprendiz.",
+      "estrategias": [
+        "Organización de grupos focales con aprendices para orientación de herramientas y habilidades socioemocionales para superar dificultades familiares.",
+        "Acompañamiento psicológico y psicosocial personalizado."
+      ]
+    },
+    {
+      "categoria": "Motivos de Salud",
+      "escalar_a": "Al Coordinador de Formación (Bienestar al Aprendiz) y Equipo de Instructores de la ficha.",
+      "estrategias": [
+        "Informar rutas de atención y servicios de salud pública que ofrece el municipio, EPS o el centro de formación.",
+        "Establecer acuerdo de plazos para entrega de evidencias justificadas.",
+        "Evaluar pertinencia de trámite de aplazamiento justificado (Art. 18 numeral 2 del reglamento)."
+      ]
+    },
+    {
+      "categoria": "Motivos Sociales",
+      "escalar_a": "Coordinador de Formación (Bienestar) y Coordinador Académico / Talento Humano.",
+      "estrategias": [
+        "Orientar en apoyos de transporte y gestión de cambio de jornada o lugar de formación.",
+        "Grupos focales o campañas de sana convivencia entre pares contra el acoso y discriminación.",
+        "Acciones con instructores para promover el buen trato y remitir a instancias pertinentes en caso necesario."
+      ]
+    },
+    {
+      "categoria": "Motivos Académicos del aprendiz",
+      "escalar_a": "Coordinador de Formación (Bienestar), Coordinador Académico e Instructores de la ficha.",
+      "estrategias": [
+        "Orientación en proyecto de vida, valía y estado emocional.",
+        "Estrategias para mejoramiento de hábitos de estudio y actitudes hacia el aprendizaje.",
+        "Formulación de plan de mejoramiento académico según reglamento.",
+        "Sinergias con monitores y aprendices de alto desempeño.",
+        "Transferencia de conocimiento y talleres de uso de plataformas digitales (LMS SofiaPlus/Zajuna)."
+      ]
+    },
+    {
+      "categoria": "Motivos asociados a la Calidad del Programa",
+      "escalar_a": "Instructores de la ficha y Coordinador Académico.",
+      "estrategias": [
+        "Orientar al aprendiz en el contenido, alcance y metodología laboral sugiriendo continuidad o traslado.",
+        "Revisión de materiales de formación y pertinencia curricular con el sector productivo."
+      ]
+    },
+    {
+      "categoria": "Motivos asociados a las condiciones institucionales",
+      "escalar_a": "Coordinador Académico, Coordinador Misional y Equipo de Bienestar.",
+      "estrategias": [
+        "Conformar equipo de trabajo para análisis de ajustes razonables con enfoque diferencial e inclusivo.",
+        "Revisar resultados de inducción y generar acciones de mejora en comunicación de servicios.",
+        "Divulgación del reglamento del aprendiz y plan de bienestar con canales de escucha activa permanentes."
+      ]
+    }
+  ]
+}

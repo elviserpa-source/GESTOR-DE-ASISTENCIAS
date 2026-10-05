@@ -1,0 +1,90 @@
+{
+  "formato": {
+    "codigo": "GFPI-F-176",
+    "version": "01",
+    "nombre": "Formato Ruta de atención para la prevención de la Deserción",
+    "proceso": "Gestión de la Formación Profesional Integral",
+    "subtitulo": "REGISTRO APRENDICES USUARIOS DE LA RUTA DE ATENCIÓN PARA LA PREVENCIÓN DE LA DESERCIÓN",
+    "plataforma_origen": "CompromISO SENA"
+  },
+  "encabezado": {
+    "regional": {
+      "tipo": "string",
+      "descripcion": "Nombre de la Regional SENA (ej. Regional Córdoba)"
+    },
+    "centro_formacion": {
+      "tipo": "string",
+      "descripcion": "Nombre del Centro de Formación (ej. Centro de Comercio, Industria y Turismo - CCIT)"
+    },
+    "nivel": {
+      "tipo": "enum",
+      "opciones": ["Técnico Laboral", "Tecnólogo", "Operario", "Auxiliar", "Especialización Tecnológica"]
+    },
+    "codigo_nombre_programa": {
+      "tipo": "string",
+      "descripcion": "Código oficial y denominación completa del programa de formación"
+    },
+    "numero_ficha": {
+      "tipo": "string",
+      "descripcion": "Código numérico identificador de la ficha de formación"
+    },
+    "nombre_instructor": {
+      "tipo": "string",
+      "descripcion": "Nombre y apellidos completos del instructor que diligencia"
+    }
+  },
+  "columnas_registro": [
+    {
+      "id": "fecha_registro",
+      "titulo": "Fecha del registro (dd/mm/aaaa)",
+      "requerido": true
+    },
+    {
+      "id": "documento_aprendiz",
+      "titulo": "No de documento del aprendiz",
+      "requerido": true
+    },
+    {
+      "id": "nombre_aprendiz",
+      "titulo": "Nombre y apellido del aprendiz",
+      "requerido": true
+    },
+    {
+      "id": "situacion_riesgo",
+      "titulo": "Situación de riesgo que presenta el aprendiz",
+      "descripcion": "Ej. Inasistencia 1 o 2 días, retardo recurrente, baja entrega de evidencias, desmotivación o problemas de conectividad",
+      "requerido": true
+    },
+    {
+      "id": "causa_riesgo",
+      "titulo": "Causa o causas que originan la situación de riesgo",
+      "descripcion": "Asociadas a la Tabla 1 del protocolo GFPI-PR-001 (Económicos, Laborales, Familiares, Salud, Sociales, Académicos, Calidad, Institucionales)",
+      "requerido": true
+    },
+    {
+      "id": "escalo_caso",
+      "titulo": "Escaló el caso según la ruta de atención establecida?",
+      "tipo": "boolean",
+      "valores_posibles": ["Sí", "No"],
+      "requerido": true
+    },
+    {
+      "id": "a_quien_escalo",
+      "titulo": "A quien lo escaló ?",
+      "descripcion": "Instancia según Tabla 2 (Coordinador de Formación, Bienestar al Aprendiz, Coordinador Académico, APE, etc.)",
+      "requerido": true
+    },
+    {
+      "id": "acciones_adelantadas",
+      "titulo": "En general qué acciones de la ruta se adelantaron con el aprendiz",
+      "descripcion": "Contacto indagatorio, sesión de orientación, acuerdo de entrega, remisión a bienestar, etc.",
+      "requerido": true
+    },
+    {
+      "id": "estado_final_trimestre",
+      "titulo": "Estado del aprendiz en la formación al finalizar el trimestre",
+      "opciones": ["Continuó en formación (Superado)", "En seguimiento preventivo", "Aplazamiento justificado", "Traslado", "Retiro voluntario", "Remitido a deserción grupal"],
+      "requerido": true
+    }
+  ]
+}

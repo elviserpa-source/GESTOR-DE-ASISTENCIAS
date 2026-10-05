@@ -1,0 +1,96 @@
+{
+  "formato": {
+    "nombre": "REPORTE GRUPAL DE DESERCIÓN",
+    "entidad": "Servicio Nacional de Aprendizaje SENA",
+    "codigo_referencia": "GFPI-PR-001 / Reglamento del Aprendiz Art. 30",
+    "descripcion": "Instrumento oficial para el reporte consolidado de aprendices incursos en causal de deserción (3 o más días consecutivos o 5 acumulados de inasistencia injustificada, etapa productiva vencida o falta de reingreso tras aplazamiento) remitido al Coordinador de Formación con copia a la Coordinación Académica."
+  },
+  "encabezado": {
+    "regional": "Regional Córdoba",
+    "centro_formacion": "Centro de Comercio, Industria y Turismo CCIT",
+    "programa_formacion": "string",
+    "numero_ficha": "string",
+    "fecha_iniciacion": "string",
+    "horario": "string",
+    "fecha_terminacion": "string",
+    "instructor": "Elvis Serpa Hernández",
+    "documento_instructor_cc": "string",
+    "fecha_reporte": "string"
+  },
+  "tipos_de_novedad": [
+    {
+      "categoria": "1. Cancelación Matrícula Índole Académico",
+      "subtipos": [
+        {"codigo": "1.1", "nombre": "Incumplimiento de Contrato de Aprendizaje"},
+        {"codigo": "1.2", "nombre": "No Cumplió con el Plan de Mejoramiento"}
+      ]
+    },
+    {
+      "categoria": "2. Cancelación Índole Disciplinario",
+      "subtipos": [
+        {"codigo": "2.1", "nombre": "No Cumplió con el Plan de Mejoramiento"},
+        {"codigo": "2.2", "nombre": "Sanción Impuesta Mediante Debido Proceso"}
+      ]
+    },
+    {
+      "categoria": "3. Deserción Proceso de Formación",
+      "subtipos": [
+        {"codigo": "3.1", "nombre": "Incumplimiento - Inasistencia 3 días consecutivos o más sin justificación"},
+        {"codigo": "3.2", "nombre": "No se presenta evidencia relación etapa productiva"},
+        {"codigo": "3.3", "nombre": "No se reintegra a partir de la fecha límite autorizado aplazamiento"}
+      ]
+    },
+    {
+      "categoria": "4. Retiro por fraude",
+      "subtipos": [
+        {"codigo": "4.1", "nombre": "Suplantación datos básicos para certificarse"}
+      ]
+    },
+    {
+      "categoria": "5. Retiro Proceso de Formación",
+      "subtipos": [
+        {"codigo": "5.1", "nombre": "No inicia proceso de formación"},
+        {"codigo": "5.2", "nombre": "Por Fallecimiento"}
+      ]
+    }
+  ],
+  "causas_de_desercion_oficiales": [
+    {"codigo": 1, "nombre": "Desinterés por la Formación"},
+    {"codigo": 2, "nombre": "Problemas Familiares"},
+    {"codigo": 3, "nombre": "Cambio Domicilio"},
+    {"codigo": 4, "nombre": "Maternidad"},
+    {"codigo": 5, "nombre": "Por Trabajo"},
+    {"codigo": 6, "nombre": "Nunca se Presentó a la Formación"},
+    {"codigo": 7, "nombre": "Problemas de Salud"},
+    {"codigo": 8, "nombre": "Traslado Centro de Formación"},
+    {"codigo": 9, "nombre": "Unificación de fichas"},
+    {"codigo": 10, "nombre": "Problemas Económicos"},
+    {"codigo": 11, "nombre": "Incumplimiento del Contrato de Aprendizaje"},
+    {"codigo": 12, "nombre": "Perfil Vocacional"},
+    {"codigo": 13, "nombre": "No aprobó competencias y resultados"},
+    {"codigo": 14, "nombre": "Por Fallecimiento"},
+    {"codigo": 15, "nombre": "Aplazamiento de la Formación y no se Reintegró"},
+    {"codigo": 16, "nombre": "No presenta evidencia de Etapa Productiva"},
+    {"codigo": 17, "nombre": "Dificultad para el traslado del domicilio al Centro de Formación"},
+    {"codigo": 18, "nombre": "No Tiene Tiempo para Asistir a la Formación"},
+    {"codigo": 19, "nombre": "Condicionamiento Disciplinario (incumplimiento al reglamento)"},
+    {"codigo": 20, "nombre": "Dedicación a Otros Estudios o dedicado a otra actividad"},
+    {"codigo": 21, "nombre": "Por Error"},
+    {"codigo": 22, "nombre": "Fuerzas Militares"},
+    {"codigo": 23, "nombre": "Otra Causa"}
+  ],
+  "columnas_aprendices": [
+    {"id": "numero", "titulo": "No."},
+    {"id": "documento_identificacion", "titulo": "Documento de Identificación"},
+    {"id": "apellidos_nombres", "titulo": "Apellidos y Nombres"},
+    {"id": "correo", "titulo": "Correo Electrónico"},
+    {"id": "tipo_novedad", "titulo": "Tipo de Novedad (Código)"},
+    {"id": "causa_desercion", "titulo": "Causa de Deserción (Código 1-23)"},
+    {"id": "fecha_desercion", "titulo": "Fecha Deserción (dd/mm/aaaa)"},
+    {"id": "observaciones", "titulo": "Observaciones"}
+  ],
+  "firmas_requeridas": [
+    {"cargo": "Instructor", "nombre": "Elvis Serpa Hernández"},
+    {"cargo": "Coordinador Académico", "nombre": "Coordinación Académica CCIT"}
+  ]
+}

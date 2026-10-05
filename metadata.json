@@ -1,0 +1,6 @@
+{
+  "name": "SENA Asiste & Previene - Ruta de Deserción",
+  "description": "Sistema automatizado de control de asistencia técnica y protocolo GFPI-PR-001 de prevención y gestión de la deserción para el SENA.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

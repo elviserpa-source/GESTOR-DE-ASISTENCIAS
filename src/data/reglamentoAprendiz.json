@@ -1,0 +1,91 @@
+{
+  "acuerdo": "Acuerdo 09 de 2024 (Noviembre 5)",
+  "entidad": "Servicio Nacional de Aprendizaje - SENA",
+  "titulo": "Reglamento del Aprendiz SENA",
+  "diarioOficial": "No. 52.947 de 21 de noviembre de 2024",
+  "derogatorias": [
+    "Acuerdo 07 de 2012",
+    "Acuerdo 02 de 2014",
+    "Acuerdo 06 de 2023",
+    "Acuerdo 02 de 2024"
+  ],
+  "modificaciones": [
+    "Modificado por el Acuerdo 02 de 10 de marzo de 2026 (Artículo 48)"
+  ],
+  "definiciones_clave": {
+    "aprendiz": "Persona matriculada en los programas de formación profesional del SENA en sus diferentes modalidades, quienes durante el tiempo que desarrollen su formación se denominan Aprendices.",
+    "ficha": "Término que se usa para identificar con código numérico a un grupo de aprendices que se encuentran matriculados en un programa de formación bajo las mismas condiciones para el desarrollo de la formación.",
+    "desercion": "Abandono injustificado del proceso de formación en sus diferentes modalidades o etapas lectiva o productiva sin cumplimiento del debido proceso o justificación válida."
+  },
+  "articulos_relevantes_asistencia_desercion": {
+    "articulo_8_deberes": {
+      "numeral_5": "Asistir con puntualidad a todas las actividades propias del proceso de formación.",
+      "numeral_6": "Cumplir con todas las actividades de su proceso formativo, presentando evidencias según la planeación pedagógica y guías de aprendizaje.",
+      "numeral_7": "Justificar debidamente las inasistencias o incumplimientos a las actividades de la formación, en los términos establecidos en el reglamento.",
+      "numeral_8": "Reportar o informar oportunamente ante el instructor como primera instancia, y en segunda instancia al coordinador académico, las situaciones que se presenten en la ejecución de la formación que afecten el desarrollo de la misma."
+    },
+    "articulo_27_cumplimiento_satisfactorio": {
+      "descripcion": "Se configura cuando el aprendiz presenta evidencias de aprendizaje idóneas y pertinentes, asiste y participa activamente en actividades presenciales o virtuales concertadas en su ruta de aprendizaje. La falta de ejecución configura un incumplimiento que puede ser justificado o injustificado, y constituir falta académica o disciplinaria."
+    },
+    "articulo_28_incumplimiento_justificado": {
+      "definicion": "Se configura cuando median causas con soportes válidos.",
+      "inasistencias_programadas": [
+        "Citas o incapacidades médicas",
+        "Citaciones a diligencias electorales o gubernamentales",
+        "Requerimientos excepcionales laborales (máximo 3 días en el trimestre)",
+        "Autorización para asistir en representación del SENA o del país",
+        "Citación a diligencias judiciales",
+        "Actividades asociadas a credo religioso con plan acordado",
+        "Licencia de maternidad o paternidad"
+      ],
+      "inasistencias_no_programadas": [
+        "Muerte de algún familiar hasta segundo grado de consanguinidad o afinidad",
+        "Calamidad doméstica demostrada",
+        "Problemas de seguridad comprobados",
+        "Problemas de salud propia o de familiar dependiente",
+        "Urgencias relacionadas con estado de embarazo o familiar dependiente"
+      ],
+      "plazos_justificacion": {
+        "programadas": "Al menos un (1) día de anterioridad a su ocurrencia.",
+        "no_programadas": "A más tardar dentro de los cinco (5) días hábiles siguientes a su ocurrencia con los debidos soportes."
+      }
+    },
+    "articulo_29_incumplimiento_injustificado": {
+      "casos": [
+        "Cuando el aprendiz no reporta ni justifica los incumplimientos ante el instructor previamente o dentro de los cinco (5) días hábiles siguientes.",
+        "Cuando el aprendiz reporta dentro del plazo pero las causas y soportes no corresponden a las establecidas como justificadas."
+      ]
+    },
+    "articulo_30_desercion": {
+      "definicion": "Se presenta por el abandono de la formación por parte del aprendiz en las siguientes situaciones:",
+      "causales_inasistencia": {
+        "presencial": "Tener tres (3) días continuos de inasistencia injustificada o acumular cinco (5) días no continuos de inasistencia injustificada durante todo el proceso de formación.",
+        "virtual": "No asistir a tres (3) citaciones seguidas del instructor o no ingresar a plataforma LMS durante veinte (20) días consecutivos sin previa justificación.",
+        "distancia": "No justificar inasistencia a tres (3) encuentros presenciales programados.",
+        "etapa_productiva": "Inasistencia injustificada durante tres (3) días consecutivos a la empresa co-formadora.",
+        "complementaria_presencial": "No registrar cumplimiento justificado del 10% de las horas asignadas para la formación."
+      },
+      "causales_adicionales": {
+        "etapa_productiva_no_planeada": "Terminada la etapa lectiva y al límite por fecha del grupo, no haber presentado la planeación de la etapa productiva avalada por el instructor de seguimiento.",
+        "falta_reintegro_aplazamiento": "No registrar o gestionar solicitud de reintegro por lo menos tres (3) días hábiles antes de cumplir la fecha fin del aplazamiento."
+      }
+    },
+    "articulo_31_procedimiento_desercion": {
+      "pasos": [
+        "1. Reporte del instructor y equipo ejecutor al Comité de Evaluación y Seguimiento.",
+        "2. Revisión del caso por el Comité para confirmar el abandono, verificar causas y validar acciones adelantadas de prevención.",
+        "3. Calificación de la falta como GRAVE y recomendación a la Subdirección del Centro para cancelación de matrícula por deserción.",
+        "4. Garantía del debido proceso conforme al régimen sancionatorio.",
+        "5. Actualización del estado en el aplicativo de gestión académica administrativa."
+      ]
+    },
+    "articulo_46_medidas_formativas": {
+      "llamado_atencion": "Escrito. Hasta 2 por fase del proyecto por parte de instructores. El 2do llamado va con orientaciones pedagógicas.",
+      "plan_mejoramiento": "Agotados los 2 llamados de atención, se formula plan con actividades y evidencias hasta por 20 días calendario. Máximo 2 por fase."
+    },
+    "articulo_47_medidas_sancionatorias": {
+      "condicionamiento_matricula": "Medida sancionatoria previo agotamiento de formativas. Pérdida de estímulos durante su vigencia.",
+      "cancelacion_matricula": "Retiro definitivo del programa por causales graves/gravísimas o persistencia de faltas o deserción. Inhabilidad de 6 meses para volver a postularse a programas laborales o tecnológicos."
+    }
+  }
+}
