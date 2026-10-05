@@ -78,6 +78,32 @@ export class SenaDatabase {
     this.setItem('fichas', fichas);
   }
 
+  static deleteFicha(fichaId: string): void {
+    // 1. Remove ficha from list
+    const currentFichas = this.getFichas().filter(f => f.id !== fichaId);
+    this.saveFichas(currentFichas);
+
+    // 2. Remove all apprentices belonging to this ficha
+    const currentAprendices = this.getAprendices().filter(a => a.fichaId !== fichaId);
+    this.saveAprendices(currentAprendices);
+
+    // 3. Remove all attendance records belonging to this ficha
+    const currentAsistencias = this.getAsistencias().filter(r => r.fichaId !== fichaId);
+    this.saveAsistencias(currentAsistencias);
+
+    // 4. Remove all GFPI-F-176 records belonging to this ficha
+    const currentGfpi = this.getGfpiRecords().filter(r => r.fichaId !== fichaId);
+    this.saveGfpiRecords(currentGfpi);
+
+    // 5. Remove all deserción records belonging to this ficha
+    const currentDesercion = this.getDesercionRecords().filter(r => r.fichaId !== fichaId);
+    this.saveDesercionRecords(currentDesercion);
+
+    // 6. Remove all email logs belonging to this ficha
+    const currentEmails = this.getEmailLogs().filter(e => e.fichaId !== fichaId);
+    this.saveEmailLogs(currentEmails);
+  }
+
   // --- APRENDICES (Inicia limpio en [] listo para ejecutar) ---
   static getAprendices(): Aprendiz[] {
     const list = this.getItem<Aprendiz[]>('aprendices', []);

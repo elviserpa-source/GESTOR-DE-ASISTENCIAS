@@ -11,13 +11,29 @@ import {
   CheckCircle2, 
   Layers,
   Trash2,
-  Sparkles
+  Sparkles,
+  FileDown,
+  AlertTriangle,
+  FolderX,
+  Users,
+  Calendar,
+  Clock,
+  ShieldAlert
 } from 'lucide-react';
-import { SenaDatabase } from '../db/senaDatabase';
+import { SenaDatabase, InstructorConfig } from '../db/senaDatabase';
+import { Ficha, Aprendiz, RegistroAsistencia, FormatoGFPI176Item, FormatoDesercionItem, EmailLog } from '../types/attendance';
+import { generateFichaClosurePDF } from '../utils/senaClosureReportGenerator';
 
 interface DatabaseModalProps {
   isOpen: boolean;
   onClose: () => void;
+  fichas?: Ficha[];
+  aprendices?: Aprendiz[];
+  attendanceRecords?: RegistroAsistencia[];
+  gfpiRecords?: FormatoGFPI176Item[];
+  desercionRecords?: FormatoDesercionItem[];
+  emailLogs?: EmailLog[];
+  instructorConfig?: InstructorConfig;
   fichasCount: number;
   aprendicesCount: number;
   asistenciasCount: number;
@@ -30,6 +46,13 @@ interface DatabaseModalProps {
 export const DatabaseModal: React.FC<DatabaseModalProps> = ({
   isOpen,
   onClose,
+  fichas = [],
+  aprendices = [],
+  attendanceRecords = [],
+  gfpiRecords = [],
+  desercionRecords = [],
+  emailLogs = [],
+  instructorConfig = SenaDatabase.getInstructorConfig(),
   fichasCount,
   aprendicesCount,
   asistenciasCount,
@@ -40,8 +63,19 @@ export const DatabaseModal: React.FC<DatabaseModalProps> = ({
 }) => {
   const [importText, setImportText] = useState('');
   const [statusMessage, setStatusMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  
+  // State for closing/deleting a specific ficha
+  const [fichaToDelete, setFichaToDelete] = useState<Ficha | null>(null);
+  const [isDeleting, setIsDeleting] = useState<boolean>(false);
 
   if (!isOpen) return null;
+
+  // Actual fichas list from props or fallback to storage
+  const activeFichas = fichas.length > 0 ? fichas : SenaDatabase.getFichas();
+  const allAprendices = aprendices.length > 0 ? aprendices : SenaDatabase.getAprendices();
+  const allAsistencias = attendanceRecords.length > 0 ? attendanceRecords : SenaDatabase.getAsistencias();
+  const allGfpi = gfpiRecords.length > 0 ? gfpiRecords : SenaDatabase.getGfpiRecords();
+  const allDesercion = desercionRecords.length > 0 ? desercionRecords : SenaDatabase.getDesercionRecords();
 
   const handleExportBackup = () => {
     const json = SenaDatabase.exportFullDatabase();
@@ -127,11 +161,55 @@ export const DatabaseModal: React.FC<DatabaseModalProps> = ({
     }
   };
 
+  /**
+   * Generates official closure PDF report and permanently deletes the selected ficha
+   */
+  const handleConfirmDeleteFicha = () => {
+    if (!fichaToDelete) return;
+
+    try {
+      setIsDeleting(true);
+
+      // 1. Generate and download official closure PDF report with metrics and unjustified absences table
+      generateFichaClosurePDF({
+        ficha: fichaToDelete,
+        aprendices: allAprendices,
+        asistencias: allAsistencias,
+        gfpiRecords: allGfpi,
+        desercionRecords: allDesercion,
+        instructorConfig
+      });
+
+      // 2. Delete ficha and associated data from storage
+      SenaDatabase.deleteFicha(fichaToDelete.id);
+
+      // 3. Trigger app reload
+      onDataReloadNeeded();
+
+      const deletedCodigo = fichaToDelete.codigo;
+      setFichaToDelete(null);
+      setIsDeleting(false);
+
+      setStatusMessage({ 
+        type: 'success', 
+        text: `¡Informe de cierre generado y descargado en PDF! La ficha ${deletedCodigo} y sus registros fueron eliminados exitosamente.` 
+      });
+      setTimeout(() => setStatusMessage(null), 4500);
+    } catch (error) {
+      console.error('Error al cerrar y eliminar ficha:', error);
+      setIsDeleting(false);
+      setStatusMessage({ 
+        type: 'error', 
+        text: 'Ocurrió un error al generar el informe o eliminar la ficha.' 
+      });
+    }
+  };
+
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
-      <div className="bg-white dark:bg-slate-900 rounded-2xl max-w-2xl w-full shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col max-h-[90vh]">
+      <div className="bg-white dark:bg-slate-900 rounded-2xl max-w-3xl w-full shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col max-h-[92vh] transition-colors duration-200">
         {/* Header */}
-        <div className="bg-[#00324D] dark:bg-slate-950 text-white px-6 py-4 flex items-center justify-between">
+        <div className="bg-[#00324D] dark:bg-slate-950 text-white px-6 py-4 flex items-center justify-between border-b border-slate-800">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-xl bg-emerald-500 text-white flex items-center justify-center font-bold">
               <Database className="w-5 h-5" />
@@ -152,9 +230,184 @@ export const DatabaseModal: React.FC<DatabaseModalProps> = ({
         </div>
 
         {/* Content */}
-        <div className="p-6 space-y-5 overflow-y-auto flex-1">
-          {/* Status cards */}
+        <div className="p-6 space-y-6 overflow-y-auto flex-1">
+          {/* Status message banner */}
+          {statusMessage && (
+            <div className={`p-3 rounded-xl text-xs flex items-center gap-2 ${
+              statusMessage.type === 'success' 
+                ? 'bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200' 
+                : 'bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-200'
+            }`}>
+              {statusMessage.type === 'success' ? (
+                <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600 dark:text-emerald-400" />
+              ) : (
+                <AlertCircle className="w-4 h-4 shrink-0 text-rose-600 dark:text-rose-400" />
+              )}
+              <span>{statusMessage.text}</span>
+            </div>
+          )}
+
+          {/* Confirmation Dialog for Ficha Closure & Deletion */}
+          {fichaToDelete && (
+            <div className="bg-rose-50/90 dark:bg-rose-950/60 border-2 border-rose-300 dark:border-rose-800 rounded-2xl p-5 space-y-4 animate-in fade-in zoom-in-95 duration-200">
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 rounded-xl bg-rose-600 text-white flex items-center justify-center shrink-0 shadow-sm">
+                  <FolderX className="w-5 h-5" />
+                </div>
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] font-black uppercase tracking-wider bg-rose-200 dark:bg-rose-900 text-rose-900 dark:text-rose-100 px-2 py-0.5 rounded">
+                      Cierre de Grupo Formativo
+                    </span>
+                    <span className="text-xs font-mono font-bold text-rose-800 dark:text-rose-300">
+                      Ficha {fichaToDelete.codigo}
+                    </span>
+                  </div>
+                  <h4 className="text-sm font-extrabold text-slate-900 dark:text-white">
+                    ¿Confirmar Cierre y Eliminación de la Ficha: {fichaToDelete.programa}?
+                  </h4>
+                  <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
+                    Esta opción está destinada para cuando la etapa de formación del grupo <strong>ha culminado</strong> y ya no se requiere seguir registrando información.
+                  </p>
+                </div>
+              </div>
+
+              {/* Requirements & Automatic Actions Card */}
+              <div className="bg-white dark:bg-slate-900 rounded-xl p-3 border border-rose-200 dark:border-rose-900/60 text-xs space-y-2">
+                <div className="flex items-center gap-2 font-bold text-slate-900 dark:text-white">
+                  <FileDown className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                  <span>Generación previa del Informe Oficial en PDF requerida:</span>
+                </div>
+                <ul className="list-disc list-inside text-slate-600 dark:text-slate-300 space-y-1 pl-1 text-[11px]">
+                  <li>
+                    Se generará y descargará automáticamente el <strong>Informe Oficial de Cierre en formato PDF</strong>.
+                  </li>
+                  <li>
+                    El informe contiene las <strong>métricas consolidadas</strong> de la ficha (asistencias, retardos, inasistencias y deserciones).
+                  </li>
+                  <li>
+                    Incluye la <strong>tabla con nombres y fechas exactas de las inasistencias injustificadas</strong> registradas durante la formación.
+                  </li>
+                  <li>
+                    Una vez generado el PDF, se eliminará la ficha y sus registros asociados de la base de datos de manera definitiva.
+                  </li>
+                </ul>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex flex-wrap items-center justify-end gap-2 pt-1">
+                <button
+                  type="button"
+                  onClick={() => setFichaToDelete(null)}
+                  disabled={isDeleting}
+                  className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800 transition cursor-pointer"
+                >
+                  Cancelar
+                </button>
+                <button
+                  type="button"
+                  onClick={handleConfirmDeleteFicha}
+                  disabled={isDeleting}
+                  className="px-4 py-2 rounded-xl text-xs font-bold bg-rose-600 hover:bg-rose-700 text-white flex items-center gap-2 shadow-sm transition cursor-pointer active:scale-95 disabled:opacity-50"
+                >
+                  <FileDown className="w-4 h-4" />
+                  <span>{isDeleting ? 'Generando PDF y Eliminando...' : 'Descargar PDF de Cierre y Eliminar Ficha'}</span>
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Fichas Management Section */}
           <div>
+            <div className="flex items-center justify-between mb-2">
+              <h4 className="text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider flex items-center gap-1.5">
+                <Layers className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                <span>Gestión y Cierre de Fichas de Formación ({activeFichas.length})</span>
+              </h4>
+              <span className="text-[11px] text-slate-500 dark:text-slate-400">
+                Eliminación con acta de cierre en PDF
+              </span>
+            </div>
+
+            <div className="space-y-2">
+              {activeFichas.length === 0 ? (
+                <div className="p-4 text-center text-xs text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-700">
+                  No hay fichas registradas actualmente. Cargue un listado en el Módulo 1 para registrar una ficha.
+                </div>
+              ) : (
+                activeFichas.map(f => {
+                  const fAprendices = allAprendices.filter(a => a.fichaId === f.id);
+                  const fAsistencias = allAsistencias.filter(r => r.fichaId === f.id);
+                  const fInasistencias = fAsistencias.filter(r => r.estado === 'NA');
+
+                  return (
+                    <div 
+                      key={f.id}
+                      className="p-3.5 bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 rounded-xl flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 transition-colors hover:border-slate-300 dark:hover:border-slate-600"
+                    >
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="font-mono font-bold text-xs bg-emerald-100 dark:bg-emerald-950/80 text-emerald-900 dark:text-emerald-300 px-2 py-0.5 rounded border border-emerald-300 dark:border-emerald-800">
+                            {f.codigo}
+                          </span>
+                          <span className="text-xs font-bold text-slate-900 dark:text-white">
+                            {f.programa}
+                          </span>
+                        </div>
+                        <div className="flex flex-wrap items-center gap-3 text-[11px] text-slate-500 dark:text-slate-400">
+                          <span>{f.nivel}</span>
+                          <span>•</span>
+                          <span>{f.jornada} ({f.horario})</span>
+                          <span>•</span>
+                          <span className="font-semibold text-slate-700 dark:text-slate-300">{fAprendices.length} aprendices</span>
+                          <span>•</span>
+                          <span className="font-semibold text-rose-700 dark:text-rose-400">{fInasistencias.length} inasistencias NA</span>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-2 shrink-0">
+                        {/* Direct PDF Download Preview */}
+                        <button
+                          type="button"
+                          onClick={() => {
+                            generateFichaClosurePDF({
+                              ficha: f,
+                              aprendices: allAprendices,
+                              asistencias: allAsistencias,
+                              gfpiRecords: allGfpi,
+                              desercionRecords: allDesercion,
+                              instructorConfig
+                            });
+                            setStatusMessage({ type: 'success', text: `Informe PDF de la ficha ${f.codigo} descargado.` });
+                            setTimeout(() => setStatusMessage(null), 3000);
+                          }}
+                          className="px-2.5 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer"
+                          title="Descargar únicamente el informe PDF de esta ficha sin eliminarla"
+                        >
+                          <FileDown className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                          <span>PDF Cierre</span>
+                        </button>
+
+                        {/* Close and Delete Ficha Button */}
+                        <button
+                          type="button"
+                          onClick={() => setFichaToDelete(f)}
+                          className="px-3 py-1.5 rounded-lg bg-rose-50 dark:bg-rose-950/40 hover:bg-rose-600 dark:hover:bg-rose-700 text-rose-700 dark:text-rose-300 hover:text-white dark:hover:text-white border border-rose-200 dark:border-rose-900/60 text-xs font-bold flex items-center gap-1.5 transition cursor-pointer group shadow-2xs"
+                          title="Cerrar el grupo y eliminar la ficha generando previamente el informe en PDF"
+                        >
+                          <Trash2 className="w-3.5 h-3.5 group-hover:scale-110 transition-transform" />
+                          <span>Eliminar Ficha</span>
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })
+              )}
+            </div>
+          </div>
+
+          {/* Status summary cards */}
+          <div className="pt-2 border-t border-slate-200 dark:border-slate-800">
             <h4 className="text-xs font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider mb-2">
               Registros Almacenados en la Base de Datos
             </h4>
@@ -252,7 +505,7 @@ export const DatabaseModal: React.FC<DatabaseModalProps> = ({
               Restaurar Base de Datos desde Respaldo JSON
             </h4>
             <textarea
-              rows={4}
+              rows={3}
               value={importText}
               onChange={e => setImportText(e.target.value)}
               placeholder="Pegue aquí el contenido JSON exportado previamente..."
@@ -267,21 +520,6 @@ export const DatabaseModal: React.FC<DatabaseModalProps> = ({
               </button>
             </div>
           </div>
-
-          {statusMessage && (
-            <div className={`p-3 rounded-xl text-xs flex items-center gap-2 ${
-              statusMessage.type === 'success' 
-                ? 'bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200' 
-                : 'bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-200'
-            }`}>
-              {statusMessage.type === 'success' ? (
-                <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600 dark:text-emerald-400" />
-              ) : (
-                <AlertCircle className="w-4 h-4 shrink-0 text-rose-600 dark:text-rose-400" />
-              )}
-              <span>{statusMessage.text}</span>
-            </div>
-          )}
         </div>
 
         {/* Footer */}

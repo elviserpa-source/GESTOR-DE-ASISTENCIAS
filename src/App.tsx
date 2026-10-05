@@ -307,6 +307,13 @@ export default function App() {
       <DatabaseModal
         isOpen={isDatabaseModalOpen}
         onClose={() => setIsDatabaseModalOpen(false)}
+        fichas={fichas}
+        aprendices={aprendices}
+        attendanceRecords={attendanceRecords}
+        gfpiRecords={gfpiRecords}
+        desercionRecords={desercionRecords}
+        emailLogs={emailLogs}
+        instructorConfig={instructorConfig}
         fichasCount={fichas.length}
         aprendicesCount={aprendices.length}
         asistenciasCount={attendanceRecords.length}

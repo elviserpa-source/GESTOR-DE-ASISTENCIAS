@@ -295,6 +295,8 @@ export const DailyAttendanceModule: React.FC<DailyAttendanceModuleProps> = ({
   // Real percentage calculations:
   // - Effective attendance (Presentes + Retardos + Justificadas excusadas)
   // - Inasistencia Injustificada: EXACT proportion of absent learners (e.g. 9/30 = 30%)
+  const percentP = total > 0 ? Math.round((countP / total) * 100) : 0;
+  const percentR = total > 0 ? Math.round((countR / total) * 100) : 0;
   const percentAttendance = total > 0 ? Math.round(((countP + countR + countJ) / total) * 100) : 0;
   const percentInasistencia = total > 0 ? Math.round((countNA / total) * 100) : 0;
   const percentJustificadas = total > 0 ? Math.round((countJ / total) * 100) : 0;
@@ -505,67 +507,87 @@ export const DailyAttendanceModule: React.FC<DailyAttendanceModuleProps> = ({
           </div>
         </div>
 
-        {/* Real-time KPI Bar for Selected Day - 5 Tarjetas Precisas */}
+        {/* Real-time KPI Bar for Selected Day - 5 Tarjetas con Hegemonía (Porcentaje Principal y Dato de Soporte Abajo) */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mt-5 pt-4 border-t border-slate-100 dark:border-slate-800">
-          {/* 1. Presentes */}
-          <div className="bg-emerald-50/70 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/80 rounded-xl p-3 flex items-center justify-between">
-            <div>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-800 dark:text-emerald-300">Presentes (P)</span>
-              <div className="text-xl font-extrabold text-emerald-900 dark:text-emerald-200">{countP} <span className="text-xs font-normal text-emerald-700 dark:text-emerald-400">activos</span></div>
+          {/* 1. Presentes (P) */}
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-xs hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-200 flex flex-col justify-between">
+            <div className="flex items-center justify-between mb-1.5">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Presentes (P)</span>
+              <div className="w-7 h-7 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/60 flex items-center justify-center font-bold text-xs shadow-2xs">
+                P
+              </div>
             </div>
-            <div className="w-8 h-8 rounded-lg bg-emerald-500 text-white flex items-center justify-center font-bold text-sm shadow-xs">
-              P
+            <div className="my-1">
+              <span className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 dark:text-white">{percentP}%</span>
+            </div>
+            <div className="pt-2 mt-1 border-t border-slate-100 dark:border-slate-800/80 text-[11px] text-slate-500 dark:text-slate-400 truncate">
+              <span className="font-bold text-emerald-600 dark:text-emerald-400">{countP}</span> de {total} aprendices activos
             </div>
           </div>
 
-          {/* 2. Retardos */}
-          <div className="bg-amber-50/70 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/80 rounded-xl p-3 flex items-center justify-between">
-            <div>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-amber-800 dark:text-amber-300">Retardos (R)</span>
-              <div className="text-xl font-extrabold text-amber-900 dark:text-amber-200">{countR} <span className="text-xs font-normal text-amber-700 dark:text-amber-400">activos</span></div>
+          {/* 2. Retardos (R) */}
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-xs hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-200 flex flex-col justify-between">
+            <div className="flex items-center justify-between mb-1.5">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Retardos (R)</span>
+              <div className="w-7 h-7 rounded-lg bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 border border-amber-200 dark:border-amber-800/60 flex items-center justify-center font-bold text-xs shadow-2xs">
+                R
+              </div>
             </div>
-            <div className="w-8 h-8 rounded-lg bg-amber-500 text-white flex items-center justify-center font-bold text-sm shadow-xs">
-              R
+            <div className="my-1">
+              <span className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 dark:text-white">{percentR}%</span>
+            </div>
+            <div className="pt-2 mt-1 border-t border-slate-100 dark:border-slate-800/80 text-[11px] text-slate-500 dark:text-slate-400 truncate">
+              <span className="font-bold text-amber-600 dark:text-amber-400">{countR}</span> de {total} aprendices activos
             </div>
           </div>
 
           {/* 3. Inasistencias Injustificadas (NA) */}
-          <div className="bg-rose-50/70 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800/80 rounded-xl p-3 flex items-center justify-between">
-            <div>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-rose-800 dark:text-rose-300">Injustificadas (NA)</span>
-              <div className="text-xl font-extrabold text-rose-900 dark:text-rose-200">
-                {countNA} <span className="text-xs font-bold text-rose-700 dark:text-rose-400">({percentInasistencia}%)</span>
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-xs hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-200 flex flex-col justify-between">
+            <div className="flex items-center justify-between mb-1.5">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Injustificadas (NA)</span>
+              <div className="w-7 h-7 rounded-lg bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-800/60 flex items-center justify-center font-bold text-xs shadow-2xs">
+                NA
               </div>
             </div>
-            <div className="w-8 h-8 rounded-lg bg-rose-500 text-white flex items-center justify-center font-bold text-sm shadow-xs">
-              NA
+            <div className="my-1">
+              <span className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 dark:text-white">{percentInasistencia}%</span>
+            </div>
+            <div className="pt-2 mt-1 border-t border-slate-100 dark:border-slate-800/80 text-[11px] text-slate-500 dark:text-slate-400 truncate">
+              <span className="font-bold text-rose-600 dark:text-rose-400">{countNA}</span> de {total} aprendices faltaron
             </div>
           </div>
 
           {/* 4. Inasistencias Justificadas (J) - Reglamento Art. 22 */}
-          <div className="bg-sky-50/70 dark:bg-sky-950/40 border border-sky-200 dark:border-sky-800/80 rounded-xl p-3 flex items-center justify-between">
-            <div>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-sky-800 dark:text-sky-300">Justificadas (J)</span>
-              <div className="text-xl font-extrabold text-sky-900 dark:text-sky-200">
-                {countJ} <span className="text-xs font-semibold text-sky-700 dark:text-sky-400">({percentJustificadas}%)</span>
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-xs hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-200 flex flex-col justify-between">
+            <div className="flex items-center justify-between mb-1.5">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Justificadas (J)</span>
+              <div className="w-7 h-7 rounded-lg bg-sky-50 dark:bg-sky-950/60 text-sky-600 dark:text-sky-400 border border-sky-200 dark:border-sky-800/60 flex items-center justify-center font-bold text-xs shadow-2xs" title="Inasistencias con excusa médica o soporte debidamente presentado">
+                J
               </div>
             </div>
-            <div className="w-8 h-8 rounded-lg bg-sky-600 text-white flex items-center justify-center font-bold text-sm shadow-xs" title="Inasistencias con excusa médica o soporte debidamente presentado">
-              J
+            <div className="my-1">
+              <span className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 dark:text-white">{percentJustificadas}%</span>
+            </div>
+            <div className="pt-2 mt-1 border-t border-slate-100 dark:border-slate-800/80 text-[11px] text-slate-500 dark:text-slate-400 truncate">
+              <span className="font-bold text-sky-600 dark:text-sky-400">{countJ}</span> con excusa radicada
             </div>
           </div>
 
           {/* 5. Tasa de Asistencia Global & Total Cohorte */}
-          <div className="bg-[#00324D] dark:bg-slate-950 text-white rounded-xl p-3 flex items-center justify-between border border-slate-700/60 shadow-xs col-span-2 sm:col-span-1">
-            <div>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-300">Asistencia Global</span>
-              <div className="text-xl font-extrabold">{percentAttendance}%</div>
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-xs hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-200 flex flex-col justify-between col-span-2 sm:col-span-1">
+            <div className="flex items-center justify-between mb-1.5">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Asistencia Global</span>
+              <div className="w-7 h-7 rounded-lg bg-emerald-100 dark:bg-emerald-950 text-[#2e8800] dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800 flex items-center justify-center font-black text-xs shadow-2xs">
+                %
+              </div>
             </div>
-            <div className="text-right">
-              <span className="text-[10px] text-slate-300 block">En Formación / Ficha</span>
-              <span className="text-xs font-bold text-slate-100">{total} / {fichaAprendices.length}</span>
+            <div className="my-1">
+              <span className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 dark:text-white">{percentAttendance}%</span>
+            </div>
+            <div className="pt-2 mt-1 border-t border-slate-100 dark:border-slate-800/80 text-[11px] text-slate-500 dark:text-slate-400 truncate flex items-center justify-between">
+              <span><span className="font-bold text-emerald-600 dark:text-emerald-400">{countP + countR + countJ}</span> de {total} en clase</span>
               {countBloqueados > 0 && (
-                <span className="text-[10px] text-amber-300 block font-semibold">({countBloqueados} bloqueados)</span>
+                <span className="text-[10px] font-bold text-amber-600 dark:text-amber-400">({countBloqueados} inactivos)</span>
               )}
             </div>
           </div>

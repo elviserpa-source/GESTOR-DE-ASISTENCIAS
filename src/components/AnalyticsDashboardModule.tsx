@@ -146,9 +146,17 @@ export const AnalyticsDashboardModule: React.FC<AnalyticsDashboardModuleProps> =
     ? Math.round((totalJ / totalSesionesRegistradas) * 100)
     : 0;
 
+  const totalAprendicesEvaluados = learnerSummaries.length;
   const countAlertaPreventiva = learnerSummaries.filter(s => s.estadoCalculado === 'ALERTA_PREVENTIVA_1_2').length;
   const countDesercion = learnerSummaries.filter(s => s.estadoCalculado === 'DESERCION_3_MAS').length;
   const countJustificadas = learnerSummaries.filter(s => s.estadoCalculado === 'JUSTIFICADA').length;
+
+  const pctAlertaPreventiva = totalAprendicesEvaluados > 0 
+    ? Math.round((countAlertaPreventiva / totalAprendicesEvaluados) * 100) 
+    : 0;
+  const pctDesercion = totalAprendicesEvaluados > 0 
+    ? Math.round((countDesercion / totalAprendicesEvaluados) * 100) 
+    : 0;
 
   // Breakdown of causes according to Protocol GFPI-PR-001 categories
   const categoryStats = useMemo(() => {
@@ -623,78 +631,101 @@ export const AnalyticsDashboardModule: React.FC<AnalyticsDashboardModuleProps> =
         )}
       </div>
 
-      {/* KPI Cards Grid - 6 Tarjetas con Indicadores Claros */}
+      {/* KPI Cards Grid - 6 Tarjetas con Hegemonía: Porcentaje Principal y Dato de Soporte Abajo */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
         {/* 1. Asistencia Global */}
-        <div className="bg-white dark:bg-slate-900 rounded-2xl p-4 border border-slate-200 dark:border-slate-800 shadow-xs transition-colors duration-200">
-          <div className="flex items-center justify-between">
-            <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400">Asistencia Global</span>
-            <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+        <div className="bg-white dark:bg-slate-900 rounded-2xl p-4 border border-slate-200 dark:border-slate-800 shadow-xs hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-200 flex flex-col justify-between">
+          <div className="flex items-center justify-between mb-1.5">
+            <span className="text-[10px] uppercase font-bold tracking-wider text-slate-500 dark:text-slate-400">Asistencia Global</span>
+            <div className="w-7 h-7 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/60 flex items-center justify-center shrink-0">
+              <CheckCircle2 className="w-4 h-4" />
+            </div>
           </div>
-          <div className="text-2xl font-black text-slate-900 dark:text-white mt-1">{pctAsistenciaGlobal}%</div>
-          <div className="text-[10px] text-emerald-600 dark:text-emerald-400 font-medium flex items-center gap-0.5 mt-1">
-            <TrendingUp className="w-3 h-3" />
-            <span>{totalP} asistencias P</span>
+          <div className="my-1">
+            <span className="text-3xl font-black tracking-tight text-slate-900 dark:text-white">{pctAsistenciaGlobal}%</span>
+          </div>
+          <div className="pt-2 mt-1 border-t border-slate-100 dark:border-slate-800/80 text-[11px] text-slate-500 dark:text-slate-400 truncate">
+            <span className="font-bold text-emerald-600 dark:text-emerald-400">{totalP}</span> de {totalSesionesRegistradas} sesiones (P)
           </div>
         </div>
 
         {/* 2. Tasa Retardos */}
-        <div className="bg-white dark:bg-slate-900 rounded-2xl p-4 border border-slate-200 dark:border-slate-800 shadow-xs transition-colors duration-200">
-          <div className="flex items-center justify-between">
-            <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400">Tasa Retardos</span>
-            <Clock className="w-3.5 h-3.5 text-amber-500" />
+        <div className="bg-white dark:bg-slate-900 rounded-2xl p-4 border border-slate-200 dark:border-slate-800 shadow-xs hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-200 flex flex-col justify-between">
+          <div className="flex items-center justify-between mb-1.5">
+            <span className="text-[10px] uppercase font-bold tracking-wider text-slate-500 dark:text-slate-400">Tasa Retardos</span>
+            <div className="w-7 h-7 rounded-lg bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 border border-amber-200 dark:border-amber-800/60 flex items-center justify-center shrink-0">
+              <Clock className="w-4 h-4" />
+            </div>
           </div>
-          <div className="text-2xl font-black text-amber-600 dark:text-amber-400 mt-1">{pctRetardos}%</div>
-          <div className="text-[10px] text-slate-500 dark:text-slate-400 mt-1">
-            {totalR} retardos (R)
+          <div className="my-1">
+            <span className="text-3xl font-black tracking-tight text-slate-900 dark:text-white">{pctRetardos}%</span>
+          </div>
+          <div className="pt-2 mt-1 border-t border-slate-100 dark:border-slate-800/80 text-[11px] text-slate-500 dark:text-slate-400 truncate">
+            <span className="font-bold text-amber-600 dark:text-amber-400">{totalR}</span> de {totalSesionesRegistradas} sesiones (R)
           </div>
         </div>
 
         {/* 3. Inasistencias Injustificadas */}
-        <div className="bg-white dark:bg-slate-900 rounded-2xl p-4 border border-slate-200 dark:border-slate-800 shadow-xs transition-colors duration-200">
-          <div className="flex items-center justify-between">
-            <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400">Injustificadas (NA)</span>
-            <XCircle className="w-3.5 h-3.5 text-rose-500" />
+        <div className="bg-white dark:bg-slate-900 rounded-2xl p-4 border border-slate-200 dark:border-slate-800 shadow-xs hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-200 flex flex-col justify-between">
+          <div className="flex items-center justify-between mb-1.5">
+            <span className="text-[10px] uppercase font-bold tracking-wider text-slate-500 dark:text-slate-400">Injustificadas (NA)</span>
+            <div className="w-7 h-7 rounded-lg bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-800/60 flex items-center justify-center shrink-0">
+              <XCircle className="w-4 h-4" />
+            </div>
           </div>
-          <div className="text-2xl font-black text-rose-600 dark:text-rose-400 mt-1">{pctInasistencia}%</div>
-          <div className="text-[10px] text-slate-500 dark:text-slate-400 mt-1">
-            {totalNA} faltas sin excusa
+          <div className="my-1">
+            <span className="text-3xl font-black tracking-tight text-slate-900 dark:text-white">{pctInasistencia}%</span>
+          </div>
+          <div className="pt-2 mt-1 border-t border-slate-100 dark:border-slate-800/80 text-[11px] text-slate-500 dark:text-slate-400 truncate">
+            <span className="font-bold text-rose-600 dark:text-rose-400">{totalNA}</span> de {totalSesionesRegistradas} sesiones (NA)
           </div>
         </div>
 
         {/* 4. Justificadas (Art. 22) */}
-        <div className="bg-sky-50 dark:bg-sky-950/40 border border-sky-200 dark:border-sky-800/80 rounded-2xl p-4 shadow-xs transition-colors duration-200">
-          <div className="flex items-center justify-between">
-            <span className="text-[10px] uppercase font-bold text-sky-800 dark:text-sky-300">Justificadas (J)</span>
-            <ShieldCheck className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
+        <div className="bg-white dark:bg-slate-900 rounded-2xl p-4 border border-slate-200 dark:border-slate-800 shadow-xs hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-200 flex flex-col justify-between">
+          <div className="flex items-center justify-between mb-1.5">
+            <span className="text-[10px] uppercase font-bold tracking-wider text-slate-500 dark:text-slate-400">Justificadas (J)</span>
+            <div className="w-7 h-7 rounded-lg bg-sky-50 dark:bg-sky-950/60 text-sky-600 dark:text-sky-400 border border-sky-200 dark:border-sky-800/60 flex items-center justify-center shrink-0">
+              <ShieldCheck className="w-4 h-4" />
+            </div>
           </div>
-          <div className="text-2xl font-black text-sky-700 dark:text-sky-300 mt-1">{totalJ}</div>
-          <div className="text-[10px] text-sky-700 dark:text-sky-400 font-semibold mt-1">
-            {pctJustificadas}% con excusa médica
+          <div className="my-1">
+            <span className="text-3xl font-black tracking-tight text-slate-900 dark:text-white">{pctJustificadas}%</span>
+          </div>
+          <div className="pt-2 mt-1 border-t border-slate-100 dark:border-slate-800/80 text-[11px] text-slate-500 dark:text-slate-400 truncate">
+            <span className="font-bold text-sky-600 dark:text-sky-400">{totalJ}</span> con excusa radicada (J)
           </div>
         </div>
 
         {/* 5. Alerta Preventiva GFPI-176 */}
-        <div className="bg-orange-50 dark:bg-orange-950/40 border border-orange-200 dark:border-orange-800/80 rounded-2xl p-4 shadow-xs transition-colors duration-200">
-          <div className="flex items-center justify-between">
-            <span className="text-[10px] uppercase font-bold text-orange-800 dark:text-orange-300">Ruta GFPI-F-176</span>
-            <AlertTriangle className="w-3.5 h-3.5 text-orange-600 dark:text-orange-400" />
+        <div className="bg-white dark:bg-slate-900 rounded-2xl p-4 border border-slate-200 dark:border-slate-800 shadow-xs hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-200 flex flex-col justify-between">
+          <div className="flex items-center justify-between mb-1.5">
+            <span className="text-[10px] uppercase font-bold tracking-wider text-slate-500 dark:text-slate-400">Ruta GFPI-F-176</span>
+            <div className="w-7 h-7 rounded-lg bg-orange-50 dark:bg-orange-950/60 text-orange-600 dark:text-orange-400 border border-orange-200 dark:border-orange-800/60 flex items-center justify-center shrink-0">
+              <AlertTriangle className="w-4 h-4" />
+            </div>
           </div>
-          <div className="text-2xl font-black text-orange-900 dark:text-orange-200 mt-1">{countAlertaPreventiva}</div>
-          <div className="text-[10px] text-orange-700 dark:text-orange-400 font-semibold mt-1">
-            1 o 2 inasistencias NA
+          <div className="my-1">
+            <span className="text-3xl font-black tracking-tight text-slate-900 dark:text-white">{pctAlertaPreventiva}%</span>
+          </div>
+          <div className="pt-2 mt-1 border-t border-slate-100 dark:border-slate-800/80 text-[11px] text-slate-500 dark:text-slate-400 truncate">
+            <span className="font-bold text-orange-600 dark:text-orange-400">{countAlertaPreventiva}</span> de {totalAprendicesEvaluados} aprendices (1-2 NA)
           </div>
         </div>
 
         {/* 6. Causal Deserción Art. 30 */}
-        <div className="bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800/80 rounded-2xl p-4 shadow-xs transition-colors duration-200">
-          <div className="flex items-center justify-between">
-            <span className="text-[10px] uppercase font-bold text-rose-800 dark:text-rose-300">Causal Deserción</span>
-            <ShieldAlert className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400" />
+        <div className="bg-white dark:bg-slate-900 rounded-2xl p-4 border border-slate-200 dark:border-slate-800 shadow-xs hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-200 flex flex-col justify-between">
+          <div className="flex items-center justify-between mb-1.5">
+            <span className="text-[10px] uppercase font-bold tracking-wider text-slate-500 dark:text-slate-400">Causal Deserción</span>
+            <div className="w-7 h-7 rounded-lg bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-800/60 flex items-center justify-center shrink-0">
+              <ShieldAlert className="w-4 h-4" />
+            </div>
           </div>
-          <div className="text-2xl font-black text-rose-900 dark:text-rose-200 mt-1">{countDesercion}</div>
-          <div className="text-[10px] text-rose-700 dark:text-rose-400 font-semibold mt-1">
-            ≥3 continuas (Art. 30)
+          <div className="my-1">
+            <span className="text-3xl font-black tracking-tight text-slate-900 dark:text-white">{pctDesercion}%</span>
+          </div>
+          <div className="pt-2 mt-1 border-t border-slate-100 dark:border-slate-800/80 text-[11px] text-slate-500 dark:text-slate-400 truncate">
+            <span className="font-bold text-rose-600 dark:text-rose-400">{countDesercion}</span> de {totalAprendicesEvaluados} aprendices (≥3 NA)
           </div>
         </div>
       </div>
